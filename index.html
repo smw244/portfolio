@@ -1,633 +1,507 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visual Design, Art & Creative Direction</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --bg: #f7f5f2;
-    --ink: #1a1814;
-    --mid: #7a7570;
-    --rule: #dedad5;
-    --accent: #c8a96e;
-    --white: #ffffff;
-    --font-display: 'Cormorant Garamond', serif;
-    --font-mono: 'DM Mono', monospace;
-  }
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f4f0;
+      --gray: #9a9a9a;
+      --light-gray: #e8e7e3;
+      --serif: 'DM Serif Display', serif;
+      --sans: 'DM Sans', sans-serif;
+    }
 
-  html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; }
 
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 300;
-    line-height: 1.6;
-    letter-spacing: 0.02em;
-    overflow-x: hidden;
-  }
+    body {
+      background: var(--white);
+      color: var(--black);
+      font-family: var(--sans);
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 3rem;
+      mix-blend-mode: multiply;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      position: relative;
+      font-weight: 400;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--black);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 24px 48px;
-    background: var(--bg);
-    border-bottom: 1px solid var(--rule);
-  }
-  .nav-logo {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 300;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink);
-    text-decoration: none;
-  }
-  .nav-links { display: flex; gap: 36px; list-style: none; }
-  .nav-links a {
-    text-decoration: none;
-    color: var(--mid);
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--ink); }
+    /* Hero / Header */
+    header {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      padding: 0 3rem 4rem;
+      position: relative;
+      border-bottom: 1px solid var(--light-gray);
+    }
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding-top: 73px;
-  }
-  .hero-text {
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 80px 48px 80px 48px;
-    border-right: 1px solid var(--rule);
-  }
-  .hero-eyebrow {
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 28px;
-  }
-  .hero-title {
-    font-family: var(--font-display);
-    font-size: clamp(52px, 6vw, 88px);
-    font-weight: 300;
-    line-height: 1.0;
-    letter-spacing: -0.01em;
-    margin-bottom: 32px;
-  }
-  .hero-title em { font-style: italic; color: var(--mid); }
-  .hero-desc {
-    max-width: 360px;
-    color: var(--mid);
-    line-height: 1.8;
-    margin-bottom: 48px;
-  }
-  .hero-cta {
-    display: inline-flex; align-items: center; gap: 12px;
-    text-decoration: none; color: var(--ink);
-    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-    border-bottom: 1px solid var(--ink); padding-bottom: 4px;
-    width: fit-content; transition: gap 0.3s;
-  }
-  .hero-cta:hover { gap: 20px; }
-  .hero-image {
-    position: relative; overflow: hidden; background: var(--rule);
-  }
-  .hero-image img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.8s ease;
-  }
-  .hero-image:hover img { transform: scale(1.03); }
-  .hero-img-caption {
-    position: absolute; bottom: 24px; right: 24px;
-    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
-  }
+    .hero-left {
+      padding-bottom: 1rem;
+    }
 
-  /* ── SECTIONS ── */
-  section { padding: 120px 48px; }
-  .section-header {
-    display: flex; align-items: baseline; justify-content: space-between;
-    border-top: 1px solid var(--rule); padding-top: 28px; margin-bottom: 64px;
-  }
-  .section-number {
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
-  }
-  .section-title {
-    font-family: var(--font-display); font-size: clamp(36px, 4vw, 56px);
-    font-weight: 300; letter-spacing: 0.02em;
-  }
-  .section-count { font-size: 10px; color: var(--mid); letter-spacing: 0.1em; }
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 1rem;
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
 
-  /* ── FEATURED (large image) ── */
-  .featured-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-  .featured-main {
-    grid-row: span 2;
-    aspect-ratio: 3/4;
-    overflow: hidden; background: var(--rule); position: relative; cursor: pointer;
-  }
-  .featured-side { aspect-ratio: 4/3; overflow: hidden; background: var(--rule); position: relative; cursor: pointer; }
-  .featured-main img, .featured-side img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.6s ease;
-  }
-  .featured-main:hover img, .featured-side:hover img { transform: scale(1.04); }
-  .img-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%);
-    opacity: 0; transition: opacity 0.3s;
-    display: flex; align-items: flex-end; padding: 24px;
-  }
-  .featured-main:hover .img-overlay,
-  .featured-side:hover .img-overlay,
-  .thumb:hover .img-overlay { opacity: 1; }
-  .img-overlay-title {
-    font-family: var(--font-display); font-size: 20px; font-weight: 300;
-    color: white; letter-spacing: 0.04em;
-  }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(4rem, 7vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.4s;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gray);
+    }
 
-  /* ── CAROUSEL ── */
-  .carousel-wrap { position: relative; }
-  .carousel-track-outer { overflow: hidden; }
-  .carousel-track {
-    display: flex; gap: 16px;
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .thumb {
-    flex: 0 0 calc(20% - 13px);
-    aspect-ratio: 3/4;
-    overflow: hidden; background: var(--rule);
-    position: relative; cursor: pointer;
-  }
-  .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-  .thumb:hover img { transform: scale(1.06); }
-  .carousel-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    background: var(--white); border: 1px solid var(--rule);
-    width: 44px; height: 44px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; color: var(--ink); z-index: 2;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .carousel-btn:hover { background: var(--ink); color: var(--white); }
-  .carousel-prev { left: -22px; }
-  .carousel-next { right: -22px; }
-  .carousel-dots {
-    display: flex; gap: 8px; justify-content: center; margin-top: 24px;
-  }
-  .dot {
-    width: 6px; height: 6px; background: var(--rule); cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-  }
-  .dot.active { background: var(--ink); transform: scale(1.4); }
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3rem;
+      padding-bottom: 1rem;
+    }
 
-  /* ── ABOUT / CONTACT ── */
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: start;
-  }
-  .about-portrait {
-    aspect-ratio: 3/4; overflow: hidden; background: var(--rule);
-  }
-  .about-portrait img { width: 100%; height: 100%; object-fit: cover; }
-  .about-body h2 {
-    font-family: var(--font-display); font-size: clamp(28px, 3vw, 44px);
-    font-weight: 300; margin-bottom: 24px; line-height: 1.2;
-  }
-  .about-body p { color: var(--mid); line-height: 1.9; margin-bottom: 16px; max-width: 560px; }
-  .services-list {
-    margin-top: 40px; border-top: 1px solid var(--rule); padding-top: 32px;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-  }
-  .service-item h4 {
-    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 6px;
-  }
-  .service-item p { color: var(--mid); font-size: 12px; }
+    .hero-desc {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--gray);
+      max-width: 280px;
+      text-align: right;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.6s;
+    }
 
-  /* ── CONTACT ── */
-  .contact-strip {
-    background: var(--ink); color: var(--white);
-    padding: 80px 48px;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 40px; flex-wrap: wrap;
-  }
-  .contact-strip h2 {
-    font-family: var(--font-display); font-size: clamp(32px, 4vw, 60px);
-    font-weight: 300; line-height: 1.1;
-  }
-  .contact-strip h2 em { font-style: italic; color: var(--accent); }
-  .contact-email {
-    font-family: var(--font-display); font-size: 20px; font-weight: 300;
-    color: var(--white); text-decoration: none; border-bottom: 1px solid var(--accent);
-    padding-bottom: 4px; transition: color 0.2s;
-  }
-  .contact-email:hover { color: var(--accent); }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 500;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.8s;
+    }
+    .hero-cta .arrow {
+      width: 36px;
+      height: 1px;
+      background: var(--black);
+      position: relative;
+      transition: width 0.3s ease;
+    }
+    .hero-cta .arrow::after {
+      content: '';
+      position: absolute;
+      right: 0; top: -3px;
+      width: 6px; height: 6px;
+      border-right: 1px solid var(--black);
+      border-top: 1px solid var(--black);
+      transform: rotate(45deg);
+    }
+    .hero-cta:hover .arrow { width: 56px; }
 
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--rule); padding: 28px 48px;
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mid);
-  }
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1.2s;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--black), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    .scroll-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      writing-mode: vertical-lr;
+    }
 
-  /* ── LIGHTBOX ── */
-  .lightbox {
-    position: fixed; inset: 0; z-index: 1000;
-    background: rgba(20, 18, 16, 0.96);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none; transition: opacity 0.3s;
-  }
-  .lightbox.open { opacity: 1; pointer-events: all; }
-  .lightbox-inner {
-    position: relative;
-    max-width: 90vw; max-height: 90vh;
-    display: flex; align-items: center; gap: 0;
-  }
-  .lightbox img {
-    max-width: 75vw; max-height: 85vh;
-    object-fit: contain;
-    transform: scale(0.92); transition: transform 0.35s ease;
-  }
-  .lightbox.open img { transform: scale(1); }
-  .lightbox-close {
-    position: fixed; top: 28px; right: 36px;
-    background: none; border: none; color: white;
-    font-size: 28px; cursor: pointer; opacity: 0.7;
-    transition: opacity 0.2s; line-height: 1;
-  }
-  .lightbox-close:hover { opacity: 1; }
-  .lightbox-nav {
-    background: none; border: 1px solid rgba(255,255,255,0.2);
-    color: white; width: 48px; height: 48px; cursor: pointer;
-    font-size: 18px; flex-shrink: 0;
-    transition: background 0.2s; display: flex; align-items: center; justify-content: center;
-  }
-  .lightbox-nav:hover { background: rgba(255,255,255,0.1); }
-  .lightbox-info {
-    position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%);
-    text-align: center; color: rgba(255,255,255,0.5);
-    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
-  }
-  .lightbox-title {
-    font-family: var(--font-display); font-size: 18px; font-weight: 300;
-    color: white; display: block; margin-bottom: 4px;
-  }
+    /* Section base */
+    section {
+      padding: 8rem 3rem;
+    }
 
-  /* ── PLACEHOLDER IMAGES ── */
-  .img-placeholder {
-    width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--mid);
-  }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 5rem;
+      padding-top: 2rem;
+    }
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      font-weight: 400;
+    }
+    .section-count {
+      font-family: var(--serif);
+      font-size: 0.9rem;
+      color: var(--light-gray);
+    }
 
-  @media (max-width: 900px) {
-    nav { padding: 20px 24px; }
-    .hero { grid-template-columns: 1fr; }
-    .hero-image { min-height: 50vw; border-right: none; border-top: 1px solid var(--rule); }
-    .hero-text { border-right: none; padding: 60px 24px; }
-    section { padding: 80px 24px; }
-    .featured-grid { grid-template-columns: 1fr; }
-    .featured-main { grid-row: span 1; aspect-ratio: 4/3; }
-    .about-grid { grid-template-columns: 1fr; }
-    .thumb { flex: 0 0 calc(33.333% - 11px); }
-    .contact-strip { padding: 60px 24px; flex-direction: column; align-items: flex-start; }
-    footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
-  }
-</style>
+    /* Projects */
+    #projects { border-bottom: 1px solid var(--light-gray); }
+
+    .projects-grid {
+      display: grid;
+      gap: 0;
+    }
+
+    .project-item {
+      display: grid;
+      grid-template-columns: 80px 1fr 1fr auto;
+      align-items: center;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--light-gray);
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .project-item:last-child { border-bottom: 1px solid var(--light-gray); }
+    .project-item::after {
+      content: '';
+      position: absolute;
+      left: -3rem; right: -3rem; top: 0; bottom: 0;
+      background: var(--black);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .project-item:hover::after { opacity: 1; }
+    .project-item:hover .proj-num,
+    .project-item:hover .proj-title,
+    .project-item:hover .proj-tags,
+    .project-item:hover .proj-year,
+    .project-item:hover .proj-arrow { color: var(--white); }
+    .project-item > * { position: relative; z-index: 1; }
+
+    .proj-num {
+      font-family: var(--serif);
+      font-size: 0.8rem;
+      color: var(--light-gray);
+      font-style: italic;
+      transition: color 0.3s;
+    }
+    .proj-title {
+      font-family: var(--serif);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      transition: color 0.3s;
+    }
+    .proj-tags {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      transition: color 0.3s;
+    }
+    .proj-year {
+      font-size: 0.75rem;
+      color: var(--gray);
+      transition: color 0.3s;
+      text-align: right;
+    }
+    .proj-arrow {
+      font-size: 1.2rem;
+      color: var(--light-gray);
+      transition: color 0.3s, transform 0.3s;
+    }
+    .project-item:hover .proj-arrow { transform: translate(4px, -4px); }
+
+
+
+    /* Contact */
+    #contact {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .contact-left {}
+    .contact-heading {
+      font-family: var(--serif);
+      font-size: clamp(3rem, 5vw, 5rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 2rem;
+    }
+    .contact-heading em { font-style: italic; color: var(--gray); }
+    .contact-sub {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.7;
+      max-width: 340px;
+    }
+    .contact-right {
+      padding-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .contact-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.6rem 0;
+      border-top: 1px solid var(--light-gray);
+      text-decoration: none;
+      color: var(--black);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 400;
+      transition: padding-left 0.3s ease;
+    }
+    .contact-link:last-child { border-bottom: 1px solid var(--light-gray); }
+    .contact-link:hover { padding-left: 0.75rem; }
+    .contact-link-arrow { font-size: 1rem; transition: transform 0.3s; }
+    .contact-link:hover .contact-link-arrow { transform: translate(4px, -4px); }
+
+    /* Footer */
+    footer {
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      border-top: 1px solid var(--light-gray);
+    }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { transform: scaleY(1); transform-origin: top; }
+      50% { transform: scaleY(0.6); transform-origin: top; }
+    }
+
+    /* Reveal on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.5rem 1.5rem; }
+      nav .nav-links { display: none; }
+      header { grid-template-columns: 1fr; align-items: flex-end; padding: 8rem 1.5rem 3rem; min-height: 100svh; }
+      .hero-right { align-items: flex-start; }
+      .hero-desc { text-align: left; }
+      section { padding: 5rem 1.5rem; }
+      .project-item { grid-template-columns: 50px 1fr auto; gap: 1.5rem; }
+      .proj-tags, .proj-year { display: none; }
+      #contact { grid-template-columns: 1fr; gap: 3rem; }
+      footer { padding: 1.5rem; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a class="nav-logo" href="#">Suzanne Wright</a>
-  <ul class="nav-links">
-    <li><a href="#branding">Branding</a></li>
-    <li><a href="#illustration">Illustration</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-text">
-    <p class="hero-eyebrow">Visual Design, Art & Creative Direction</p>
-    <h1 class="hero-title">Making<br>ideas<br><em>visible</em></h1>
-    <p class="hero-desc">"My name is Suzanne Wright. I work at the intersection of ideas and execution, helping brands find their visual voice and use it consistently.</p>
-    <a class="hero-cta" href="#branding">View Work &nbsp;→</a>
-  </div>
-  <div class="hero-image" onclick="openLightbox(heroImages, 0)">
-    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=900&q=80" alt="Featured work">
-    <span class="hero-img-caption">Selected work, 2024</span>
-  </div>
-</div>
+  <!-- Nav -->
+  <nav>
+    <a href="#" class="nav-logo">Your Name</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-<!-- SECTION 1: BRANDING -->
-<section id="branding">
-  <div class="section-header">
-    <span class="section-number">01</span>
-    <h2 class="section-title">Branding</h2>
-    <span class="section-count">12 projects</span>
-  </div>
-
-  <!-- Large featured images -->
-  <div class="featured-grid" style="margin-bottom: 48px;">
-    <div class="featured-main" onclick="openLightbox(brandingImages, 0)">
-      <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?w=800&q=80" alt="Branding project 1">
-      <div class="img-overlay"><span class="img-overlay-title">Maison Aurore</span></div>
+  <!-- Hero -->
+  <header>
+    <div class="hero-left">
+      <p class="hero-eyebrow">Design Portfolio — 2025</p>
+      <h1 class="hero-title">
+        Creative<br /><em>Designer</em><br />&amp; Thinker
+      </h1>
     </div>
-    <div class="featured-side" onclick="openLightbox(brandingImages, 1)">
-      <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80" alt="Branding project 2">
-      <div class="img-overlay"><span class="img-overlay-title">Forma Studio</span></div>
+    <div class="hero-right">
+      <p class="hero-desc">
+        Crafting visually compelling designs that blend creativity and strategy to build memorable brand identities, marketing materials, and graphics that make an impact.
+      </p>
+      <a href="#projects" class="hero-cta">
+        View Work
+        <span class="arrow"></span>
+      </a>
     </div>
-    <div class="featured-side" onclick="openLightbox(brandingImages, 2)">
-      <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&q=80" alt="Branding project 3">
-      <div class="img-overlay"><span class="img-overlay-title">Olive & Salt</span></div>
+    <div class="scroll-indicator">
+      <span class="scroll-label">Scroll</span>
+      <div class="scroll-line"></div>
     </div>
-  </div>
+  </header>
 
-  <!-- Thumbnail carousel -->
-  <div class="carousel-wrap" id="brandingCarousel">
-    <div class="carousel-track-outer">
-      <div class="carousel-track" id="brandingTrack">
-        <div class="thumb" onclick="openLightbox(brandingImages, 0)"><img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Maison Aurore</span></div></div>
-        <div class="thumb" onclick="openLightbox(brandingImages, 1)"><img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Forma Studio</span></div></div>
-        <div class="thumb" onclick="openLightbox(brandingImages, 2)"><img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Olive & Salt</span></div></div>
-        <div class="thumb" onclick="openLightbox(brandingImages, 3)"><img src="https://images.unsplash.com/photo-1586717799252-bd134ad00e26?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Dusk Type</span></div></div>
-        <div class="thumb" onclick="openLightbox(brandingImages, 4)"><img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Pale & Wild</span></div></div>
-        <div class="thumb" onclick="openLightbox(brandingImages, 5)"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Koto Mark</span></div></div>
-        <div class="thumb" onclick="openLightbox(brandingImages, 6)"><img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Reverie Co.</span></div></div>
-        <div class="thumb" onclick="openLightbox(brandingImages, 7)"><img src="https://images.unsplash.com/photo-1609921212029-bb5a28e60960?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Mineral</span></div></div>
-      </div>
+  <!-- Projects -->
+  <section id="projects">
+    <div class="section-header reveal">
+      <span class="section-label">Selected Work</span>
+      <span class="section-count">04</span>
     </div>
-    <button class="carousel-btn carousel-prev" onclick="slideCarousel('brandingTrack','brandingDots',-1)">‹</button>
-    <button class="carousel-btn carousel-next" onclick="slideCarousel('brandingTrack','brandingDots',1)">›</button>
-    <div class="carousel-dots" id="brandingDots"></div>
-  </div>
-</section>
 
-<!-- SECTION 2: ILLUSTRATION -->
-<section id="illustration" style="background: var(--white);">
-  <div class="section-header">
-    <span class="section-number">02</span>
-    <h2 class="section-title">Illustration</h2>
-    <span class="section-count">18 projects</span>
-  </div>
+    <div class="projects-grid">
 
-  <!-- Large featured image — full width -->
-  <div style="width: 100%; aspect-ratio: 16/7; overflow: hidden; background: var(--rule); margin-bottom: 48px; cursor: pointer; position: relative;"
-       onclick="openLightbox(illustrationImages, 0)">
-    <img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1400&q=80" alt="Illustration hero"
-         style="width:100%;height:100%;object-fit:cover;transition:transform 0.8s ease;"
-         onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-    <div class="img-overlay" style="opacity:0;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
-      <span class="img-overlay-title">The Garden Series — editorial illustrations</span>
+      <a class="project-item reveal" href="project-01.html">
+        <span class="proj-num">01</span>
+        <span class="proj-title">Brand Identity<br />System</span>
+        <span class="proj-tags">Branding · Visual Identity</span>
+        <span class="proj-year">2024</span>
+        <span class="proj-arrow">↗</span>
+      </a>
+
+      <a class="project-item reveal" href="project-02.html">
+        <span class="proj-num">02</span>
+        <span class="proj-title">Editorial<br />Magazine Design</span>
+        <span class="proj-tags">Print · Typography</span>
+        <span class="proj-year">2024</span>
+        <span class="proj-arrow">↗</span>
+      </a>
+
+      <a class="project-item reveal" href="project-03.html">
+        <span class="proj-num">03</span>
+        <span class="proj-title">Web Experience<br />Design</span>
+        <span class="proj-tags">UX/UI · Digital</span>
+        <span class="proj-year">2023</span>
+        <span class="proj-arrow">↗</span>
+      </a>
+
+      <a class="project-item reveal" href="project-04.html">
+        <span class="proj-num">04</span>
+        <span class="proj-title">Packaging<br />Concept</span>
+        <span class="proj-tags">Packaging · 3D</span>
+        <span class="proj-year">2023</span>
+        <span class="proj-arrow">↗</span>
+      </a>
+
     </div>
-  </div>
+  </section>
 
-  <!-- Thumbnail carousel -->
-  <div class="carousel-wrap" id="illustrationCarousel">
-    <div class="carousel-track-outer">
-      <div class="carousel-track" id="illustrationTrack">
-        <div class="thumb" onclick="openLightbox(illustrationImages, 0)"><img src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Garden Series</span></div></div>
-        <div class="thumb" onclick="openLightbox(illustrationImages, 1)"><img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Tide & Shore</span></div></div>
-        <div class="thumb" onclick="openLightbox(illustrationImages, 2)"><img src="https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Quiet Hours</span></div></div>
-        <div class="thumb" onclick="openLightbox(illustrationImages, 3)"><img src="https://images.unsplash.com/photo-1578301978018-3005759f48f7?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Bloom Study</span></div></div>
-        <div class="thumb" onclick="openLightbox(illustrationImages, 4)"><img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Line Work</span></div></div>
-        <div class="thumb" onclick="openLightbox(illustrationImages, 5)"><img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Nocturne</span></div></div>
-        <div class="thumb" onclick="openLightbox(illustrationImages, 6)"><img src="https://images.unsplash.com/photo-1569091791842-7cfb64e04797?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Fauna</span></div></div>
-        <div class="thumb" onclick="openLightbox(illustrationImages, 7)"><img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&q=70" alt=""><div class="img-overlay"><span class="img-overlay-title">Drift</span></div></div>
-      </div>
+  <!-- Contact -->
+  <section id="contact">
+    <div class="contact-left reveal">
+      <h2 class="contact-heading">Let's<br /><em>work</em><br />together.</h2>
+      <p class="contact-sub">Open to freelance projects, full-time roles, and interesting collaborations. Don't hesitate to reach out.</p>
     </div>
-    <button class="carousel-btn carousel-prev" onclick="slideCarousel('illustrationTrack','illustrationDots',-1)">‹</button>
-    <button class="carousel-btn carousel-next" onclick="slideCarousel('illustrationTrack','illustrationDots',1)">›</button>
-    <div class="carousel-dots" id="illustrationDots"></div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-header">
-    <span class="section-number">03</span>
-    <h2 class="section-title">About</h2>
-  </div>
-  <div class="about-grid">
-    <div class="about-portrait">
-      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&q=80" alt="Portrait">
+    <div class="contact-right reveal">
+      <a href="/cdn-cgi/l/email-protection#6f070a0303002f16001a1d010e020a410c0002" class="contact-link">
+        Email <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="https://linkedin.com" class="contact-link" target="_blank">
+        LinkedIn <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="https://instagram.com" class="contact-link" target="_blank">
+        Instagram <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="https://dribbble.com" class="contact-link" target="_blank">
+        Dribbble <span class="contact-link-arrow">↗</span>
+      </a>
     </div>
-    <div class="about-body">
-      <h2>Design with intention, illustration with instinct.</h2>
-      <p>I'm Maren, an independent designer and illustrator based in New York. My practice spans brand identity, editorial illustration, and art direction — always rooted in a curiosity about how form, line, and colour can carry meaning.</p>
-      <p>With over eight years in the industry, I've collaborated with publishers, studios, and independent founders to create visual languages that feel both considered and alive.</p>
-      <div class="services-list">
-        <div class="service-item">
-          <h4>Brand Identity</h4>
-          <p>Logo systems, visual language, and brand guidelines.</p>
-        </div>
-        <div class="service-item">
-          <h4>Editorial Illustration</h4>
-          <p>Press, publishing, and digital editorial commissions.</p>
-        </div>
-        <div class="service-item">
-          <h4>Art Direction</h4>
-          <p>Campaign concepting and creative direction.</p>
-        </div>
-        <div class="service-item">
-          <h4>Print & Packaging</h4>
-          <p>Thoughtful print collateral and product packaging.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- CONTACT -->
-<div class="contact-strip" id="contact">
-  <h2>Let's make<br>something <em>together.</em></h2>
-  <div>
-    <p style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px;">Get in touch</p>
-    <a class="contact-email" href="mailto:hello@studiomaren.com">hello@studiomaren.com</a>
-    <p style="margin-top:16px;font-size:10px;letter-spacing:0.1em;color:rgba(255,255,255,0.3);">Currently available for new projects</p>
-  </div>
-</div>
+  <!-- Footer -->
+  <footer>
+    <span>© 2025 Your Name</span>
+    <span>Based in New York</span>
+    <span>Available for work</span>
+  </footer>
 
-<!-- FOOTER -->
-<footer>
-  <span>© 2024 Studio Maren</span>
-  <span>Graphic Design & Illustration</span>
-  <span>New York, NY</span>
-</footer>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="closeLightboxOnBg(event)">
-  <button class="lightbox-close" onclick="closeLightbox()">×</button>
-  <div class="lightbox-inner">
-    <button class="lightbox-nav" onclick="lightboxNav(-1)">‹</button>
-    <img id="lightboxImg" src="" alt="">
-    <button class="lightbox-nav" onclick="lightboxNav(1)">›</button>
-  </div>
-  <div class="lightbox-info">
-    <span class="lightbox-title" id="lightboxTitle"></span>
-    <span id="lightboxCounter"></span>
-  </div>
-</div>
 
-<script>
-  // ── IMAGE DATA ──
-  const heroImages = [
-    { src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1400&q=90', title: 'Featured Work' }
-  ];
-
-  const brandingImages = [
-    { src: 'https://images.unsplash.com/photo-1634942537034-2531766767d1?w=1200&q=90', title: 'Maison Aurore' },
-    { src: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&q=90', title: 'Forma Studio' },
-    { src: 'https://images.unsplash.com/photo-1545235617-9465d2a55698?w=1200&q=90', title: 'Olive & Salt' },
-    { src: 'https://images.unsplash.com/photo-1586717799252-bd134ad00e26?w=1200&q=90', title: 'Dusk Type' },
-    { src: 'https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=1200&q=90', title: 'Pale & Wild' },
-    { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=90', title: 'Koto Mark' },
-    { src: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=1200&q=90', title: 'Reverie Co.' },
-    { src: 'https://images.unsplash.com/photo-1609921212029-bb5a28e60960?w=1200&q=90', title: 'Mineral' },
-  ];
-
-  const illustrationImages = [
-    { src: 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=1200&q=90', title: 'The Garden Series' },
-    { src: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=1200&q=90', title: 'Tide & Shore' },
-    { src: 'https://images.unsplash.com/photo-1573521193826-58c7dc2e13e3?w=1200&q=90', title: 'Quiet Hours' },
-    { src: 'https://images.unsplash.com/photo-1578301978018-3005759f48f7?w=1200&q=90', title: 'Bloom Study' },
-    { src: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=1200&q=90', title: 'Line Work' },
-    { src: 'https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?w=1200&q=90', title: 'Nocturne' },
-    { src: 'https://images.unsplash.com/photo-1569091791842-7cfb64e04797?w=1200&q=90', title: 'Fauna' },
-    { src: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1200&q=90', title: 'Drift' },
-  ];
-
-  // ── LIGHTBOX ──
-  let currentGallery = [], currentIndex = 0;
-
-  function openLightbox(gallery, index) {
-    currentGallery = gallery;
-    currentIndex = index;
-    renderLightbox();
-    document.getElementById('lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function renderLightbox() {
-    const item = currentGallery[currentIndex];
-    document.getElementById('lightboxImg').src = item.src;
-    document.getElementById('lightboxTitle').textContent = item.title;
-    document.getElementById('lightboxCounter').textContent = (currentIndex + 1) + ' / ' + currentGallery.length;
-  }
-
-  function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  function closeLightboxOnBg(e) {
-    if (e.target === document.getElementById('lightbox')) closeLightbox();
-  }
-
-  function lightboxNav(dir) {
-    currentIndex = (currentIndex + dir + currentGallery.length) % currentGallery.length;
-    const img = document.getElementById('lightboxImg');
-    img.style.opacity = '0';
-    setTimeout(() => {
-      renderLightbox();
-      img.style.opacity = '1';
-    }, 150);
-  }
-
-  document.addEventListener('keydown', e => {
-    if (!document.getElementById('lightbox').classList.contains('open')) return;
-    if (e.key === 'Escape') closeLightbox();
-    if (e.key === 'ArrowRight') lightboxNav(1);
-    if (e.key === 'ArrowLeft') lightboxNav(-1);
-  });
-
-  document.getElementById('lightboxImg').style.transition = 'opacity 0.15s';
-
-  // ── CAROUSELS ──
-  const carouselState = {};
-
-  function initCarousel(trackId, dotsId) {
-    const track = document.getElementById(trackId);
-    const dotsEl = document.getElementById(dotsId);
-    const thumbs = track.querySelectorAll('.thumb');
-    const visibleCount = getVisibleCount();
-    const pageCount = Math.ceil(thumbs.length / visibleCount);
-
-    carouselState[trackId] = { page: 0, pageCount };
-
-    dotsEl.innerHTML = '';
-    for (let i = 0; i < pageCount; i++) {
-      const d = document.createElement('div');
-      d.className = 'dot' + (i === 0 ? ' active' : '');
-      d.onclick = () => goToPage(trackId, dotsId, i);
-      dotsEl.appendChild(d);
-    }
-  }
-
-  function getVisibleCount() {
-    return window.innerWidth < 600 ? 3 : 5;
-  }
-
-  function slideCarousel(trackId, dotsId, dir) {
-    const state = carouselState[trackId];
-    state.page = Math.max(0, Math.min(state.pageCount - 1, state.page + dir));
-    applyCarousel(trackId, dotsId);
-  }
-
-  function goToPage(trackId, dotsId, page) {
-    carouselState[trackId].page = page;
-    applyCarousel(trackId, dotsId);
-  }
-
-  function applyCarousel(trackId, dotsId) {
-    const track = document.getElementById(trackId);
-    const dotsEl = document.getElementById(dotsId);
-    const state = carouselState[trackId];
-    const thumbWidth = track.querySelector('.thumb').offsetWidth;
-    const gap = 16;
-    const visibleCount = getVisibleCount();
-    const offset = state.page * visibleCount * (thumbWidth + gap);
-    track.style.transform = `translateX(-${offset}px)`;
-    dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === state.page));
-  }
-
-  initCarousel('brandingTrack', 'brandingDots');
-  initCarousel('illustrationTrack', 'illustrationDots');
-
-  window.addEventListener('resize', () => {
-    initCarousel('brandingTrack', 'brandingDots');
-    initCarousel('illustrationTrack', 'illustrationDots');
-  });
-
-  // ── FADE-IN ON SCROLL ──
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.featured-main, .featured-side, .about-portrait, .about-body').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-    observer.observe(el);
-  });
-</script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => obs.observe(el));
+  </script>
 </body>
 </html>
