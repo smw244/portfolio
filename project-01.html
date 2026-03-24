@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brand Identity System — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f4f0;
+      --gray: #9a9a9a;
+      --light-gray: #e8e7e3;
+      --serif: 'DM Serif Display', serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--black); font-family: var(--sans); font-weight: 300; overflow-x: hidden; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 2rem 3rem; background: var(--white); border-bottom: 1px solid var(--light-gray); }
+    .nav-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--black); text-decoration: none; }
+    .nav-back { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--black); text-decoration: none; display: flex; align-items: center; gap: 0.6rem; font-weight: 400; }
+    .nav-back-arrow { width: 28px; height: 1px; background: var(--black); position: relative; transition: width .3s; }
+    .nav-back-arrow::before { content: ''; position: absolute; left: 0; top: -3px; width: 6px; height: 6px; border-left: 1px solid var(--black); border-top: 1px solid var(--black); transform: rotate(-45deg); }
+    .nav-back:hover .nav-back-arrow { width: 42px; }
+    .project-header { padding: 7rem 3rem 2.5rem; border-bottom: 1px solid var(--light-gray); display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 4rem; }
+    .project-tag { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); margin-bottom: 1rem; display: block; opacity: 0; animation: fadeUp .7s ease forwards .2s; }
+    .project-title { font-family: var(--serif); font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1; letter-spacing: -0.03em; opacity: 0; animation: fadeUp .9s ease forwards .4s; }
+    .project-title em { font-style: italic; color: var(--gray); }
+    .project-meta-row { display: flex; gap: 2.5rem; align-items: flex-end; opacity: 0; animation: fadeUp .9s ease forwards .6s; padding-bottom: 0.2rem; }
+    .project-meta-item { display: flex; flex-direction: column; gap: 0.25rem; }
+    .project-meta-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); }
+    .project-meta-value { font-size: 0.85rem; font-family: var(--serif); }
+    .project-body { max-width: 1200px; margin: 0 auto; padding: 5rem 3rem 0; }
+    .desc-section { display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; margin-bottom: 5rem; }
+    .desc-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); padding-top: 0.4rem; }
+    .desc-text h2 { font-family: var(--serif); font-size: clamp(1.6rem, 2.5vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+    .desc-text h2 em { font-style: italic; color: var(--gray); }
+    .desc-text p { font-size: 1rem; line-height: 1.8; color: #555; margin-bottom: 1.25rem; }
+    .desc-text p:last-child { margin-bottom: 0; }
+    .gallery-header { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--light-gray); padding-top: 2rem; margin-bottom: 2rem; }
+    .gallery-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); }
+    .gallery-count { font-family: var(--serif); font-style: italic; font-size: 0.9rem; color: var(--light-gray); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .gallery-item { overflow: hidden; background: var(--light-gray); position: relative; aspect-ratio: 1; cursor: zoom-in; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease, opacity .4s; opacity: 0.92; }
+    .gallery-item:hover img { transform: scale(1.05); opacity: 1; }
+    .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 0.75rem 1rem; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); color: rgba(255,255,255,0.85); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0; transition: opacity .3s; }
+    .gallery-item:hover .gallery-caption { opacity: 1; }
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.94); align-items: center; justify-content: center; padding: 3rem; }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 88vw; max-height: 85vh; object-fit: contain; display: block; transition: opacity .25s ease; }
+    .lightbox-caption { position: fixed; bottom: 1.75rem; left: 50%; transform: translateX(-50%); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); white-space: nowrap; pointer-events: none; }
+    .lightbox-close { position: fixed; top: 1.75rem; right: 2.5rem; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.45); cursor: pointer; background: none; border: none; font-family: var(--sans); transition: color .2s; }
+    .lightbox-close:hover { color: #fff; }
+    .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); background: none; border: none; color: rgba(255,255,255,0.35); font-size: 1.4rem; cursor: pointer; padding: 1.5rem; transition: color .2s; line-height: 1; }
+    .lightbox-nav:hover { color: #fff; }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
+    .project-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--light-gray); margin-top: 6rem; }
+    .proj-nav-item { background: var(--white); padding: 3rem; text-decoration: none; color: var(--black); display: flex; flex-direction: column; gap: 0.75rem; transition: background .3s; }
+    .proj-nav-item:hover { background: var(--black); color: var(--white); }
+    .proj-nav-item.next { align-items: flex-end; text-align: right; }
+    .proj-nav-dir { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); transition: color .3s; }
+    .proj-nav-item:hover .proj-nav-dir { color: rgba(255,255,255,0.4); }
+    .proj-nav-title { font-family: var(--serif); font-size: 1.6rem; letter-spacing: -0.02em; line-height: 1.1; }
+    footer { padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); border-top: 1px solid var(--light-gray); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+    @media (max-width: 768px) {
+      nav { padding: 1.25rem 1.5rem; }
+      .project-header { grid-template-columns: 1fr; padding: 7rem 1.5rem 2rem; gap: 1.5rem; }
+      .project-body { padding: 3rem 1.5rem 0; }
+      .desc-section { grid-template-columns: 1fr; gap: 1.5rem; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .project-nav { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.4rem; text-align: center; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="portfolio.html" class="nav-logo">Your Name</a>
+    <a href="portfolio.html" class="nav-back">
+      <span class="nav-back-arrow"></span>
+      All Work
+    </a>
+  </nav>
+  <div class="project-header">
+    <div>
+      <span class="project-tag">01 — Branding · Visual Identity</span>
+      <h1 class="project-title">Brand <em>Identity</em> System</h1>
+    </div>
+    <div class="project-meta-row">
+      <div class="project-meta-item">
+        <span class="project-meta-label">Type</span>
+        <span class="project-meta-value">Branding</span>
+      </div>
+      <div class="project-meta-item">
+        <span class="project-meta-label">Scope</span>
+        <span class="project-meta-value">Full Identity</span>
+      </div>
+    </div>
+  </div>
+  <div class="project-body">
+    <div class="desc-section reveal">
+      <div class="desc-label">Overview</div>
+      <div class="desc-text">
+        <p>A complete visual identity developed for a contemporary lifestyle brand entering a competitive market. The challenge was to craft something immediately recognizable while carrying enough depth to grow with the company over time.</p>
+        <p>The identity system spans logo, typography, color palette, iconography, packaging, and digital applications — built with strict modularity so it scales from a business card to a billboard without losing integrity.</p>
+        <p>The wordmark is set in a custom-modified serif, its letterforms subtly adjusted to introduce tension between old-world refinement and modern restraint. Every element in the system earns its place.</p>
+      </div>
+    </div>
+    <div class="gallery-section">
+      <div class="gallery-header reveal">
+        <span class="gallery-label">Project Gallery</span>
+        <span class="gallery-count">05 images</span>
+      </div>
+      <div class="gallery-grid reveal">
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1636622433525-127afdf3662d?w=600&q=80" alt="" /><div class="gallery-caption">Primary Logomark</div></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80" alt="" /><div class="gallery-caption">Typography System</div></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&q=80" alt="" /><div class="gallery-caption">Color Palette</div></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80" alt="" /><div class="gallery-caption">Brand in Context</div></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1616628188540-925618b98318?w=600&q=80" alt="" /><div class="gallery-caption">Stationery Suite</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="project-nav reveal">
+    <a href="portfolio.html" class="proj-nav-item prev">
+      <span class="proj-nav-dir">&#8592; Back to All Work</span>
+      <span class="proj-nav-title">Portfolio<br />Index</span>
+    </a>
+    <a href="project-02.html" class="proj-nav-item next">
+      <span class="proj-nav-dir">Next Project &#8594;</span>
+      <span class="proj-nav-title">Editorial<br />Magazine Design</span>
+    </a>
+  </div>
+  <footer>
+    <span>&#169; 2025 Your Name</span>
+    <span>Brand Identity System</span>
+    <span>01 / 04</span>
+  </footer>
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lbClose">Close ✕</button>
+    <button class="lightbox-nav lightbox-prev" id="lbPrev">&#8592;</button>
+    <img src="" alt="" id="lbImg" />
+    <button class="lightbox-nav lightbox-next" id="lbNext">&#8594;</button>
+    <div class="lightbox-caption" id="lbCaption"></div>
+  </div>
+  <script>
+
+    const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*100);obs.unobserve(e.target);}});},{threshold:0.08});
+    document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+    const lightbox=document.getElementById('lightbox');
+    const lbImg=document.getElementById('lbImg');
+    const lbCaption=document.getElementById('lbCaption');
+    const items=Array.from(document.querySelectorAll('.gallery-item'));
+    let current=0;
+    function openLightbox(i){
+      current=i;
+      const img=items[i].querySelector('img');
+      const cap=items[i].querySelector('.gallery-caption');
+      lbImg.src=img.src.replace(/w=\d+/,'w=1600');
+      lbCaption.textContent=cap?cap.textContent:'';
+      lightbox.classList.add('open');
+    }
+    function closeLightbox(){lightbox.classList.remove('open');lbImg.src='';}
+    items.forEach((item,i)=>item.addEventListener('click',()=>openLightbox(i)));
+    document.getElementById('lbClose').addEventListener('click',e=>{e.stopPropagation();closeLightbox();});
+    document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();openLightbox((current-1+items.length)%items.length);});
+    document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();openLightbox((current+1)%items.length);});
+    lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
+    document.addEventListener('keydown',e=>{
+      if(!lightbox.classList.contains('open'))return;
+      if(e.key==='Escape')closeLightbox();
+      if(e.key==='ArrowLeft')openLightbox((current-1+items.length)%items.length);
+      if(e.key==='ArrowRight')openLightbox((current+1)%items.length);
+    });
+  </script>
+</body>
+</html>
