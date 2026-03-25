@@ -122,7 +122,10 @@
       <div class="gallery-grid reveal">
         <div class="gallery-item"><img src="hush-mainimg2.png" alt="" /><div class="gallery-caption">Primary Logomark</div></div>
         <div class="gallery-item"><img src="Hush-brand-style-guide_02.jpg" alt="" /><div class="gallery-caption">Typography System</div></div>
-        <div class="gallery-item"><img src="hush-web1.mp4" alt="" /><div class="gallery-caption">Color Palette</div></div>
+       <div class="gallery-item">
+  <video src="hush-web1.mp4" autoplay loop muted playsinline></video>
+  <div class="gallery-caption">Caption here</div>
+</div>
         <div class="gallery-item"><img src="https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=600&q=80" alt="" /><div class="gallery-caption">Brand in Context</div></div>
         <div class="gallery-item"><img src="https://images.unsplash.com/photo-1616628188540-925618b98318?w=600&q=80" alt="" /><div class="gallery-caption">Stationery Suite</div></div>
       </div>
@@ -160,25 +163,42 @@
     const items=Array.from(document.querySelectorAll('.gallery-item'));
     let current=0;
     function openLightbox(i){
-      current=i;
-      const img=items[i].querySelector('img');
-      const cap=items[i].querySelector('.gallery-caption');
-      lbImg.src=img.src.replace(/w=\d+/,'w=1600');
-      lbCaption.textContent=cap?cap.textContent:'';
-      lightbox.classList.add('open');
-    }
-    function closeLightbox(){lightbox.classList.remove('open');lbImg.src='';}
-    items.forEach((item,i)=>item.addEventListener('click',()=>openLightbox(i)));
-    document.getElementById('lbClose').addEventListener('click',e=>{e.stopPropagation();closeLightbox();});
-    document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();openLightbox((current-1+items.length)%items.length);});
-    document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();openLightbox((current+1)%items.length);});
-    lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
-    document.addEventListener('keydown',e=>{
-      if(!lightbox.classList.contains('open'))return;
-      if(e.key==='Escape')closeLightbox();
-      if(e.key==='ArrowLeft')openLightbox((current-1+items.length)%items.length);
-      if(e.key==='ArrowRight')openLightbox((current+1)%items.length);
-    });
+  current=i;
+  const item=items[i];
+  const cap=item.querySelector('.gallery-caption');
+  const video=item.querySelector('video');
+  const img=item.querySelector('img');
+
+  // Clear previous content
+  lbImg.style.display='none';
+  let lbVideo=document.getElementById('lbVideo');
+  if(lbVideo) lbVideo.remove();
+
+  if(video){
+    // Show video in lightbox
+    lbVideo=document.createElement('video');
+    lbVideo.id='lbVideo';
+    lbVideo.src=video.src;
+    lbVideo.controls=true;
+    lbVideo.autoplay=true;
+    lbVideo.style.cssText='max-width:88vw;max-height:85vh;display:block;';
+    lightbox.insertBefore(lbVideo, lbCaption);
+  } else {
+    // Show image in lightbox
+    lbImg.src=img.src.replace(/w=\d+/,'w=1600');
+    lbImg.style.display='block';
+  }
+
+  lbCaption.textContent=cap?cap.textContent:'';
+  lightbox.classList.add('open');
+}
+   function closeLightbox(){
+  lightbox.classList.remove('open');
+  lbImg.src='';
+  lbImg.style.display='none';
+  const lbVideo=document.getElementById('lbVideo');
+  if(lbVideo) lbVideo.remove();
+}
   </script>
 </body>
 </html>
