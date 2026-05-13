@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brand & Marketing</title>
+  <title>Brand &amp; Marketing Suite — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
@@ -36,8 +36,6 @@
     .project-body { max-width: 1200px; margin: 0 auto; padding: 5rem 3rem 0; }
     .desc-section { display: grid; grid-template-columns: 1fr 2fr; gap: 6rem; margin-bottom: 5rem; }
     .desc-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray); padding-top: 0.4rem; }
-    .desc-text h2 { font-family: var(--serif); font-size: clamp(1.6rem, 2.5vw, 2.4rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
-    .desc-text h2 em { font-style: italic; color: var(--gray); }
     .desc-text p { font-size: 1rem; line-height: 1.8; color: #555; margin-bottom: 1.25rem; }
     .desc-text p:last-child { margin-bottom: 0; }
     .gallery-header { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--light-gray); padding-top: 2rem; margin-bottom: 2rem; }
@@ -49,16 +47,33 @@
     .gallery-item:hover img { transform: scale(1.05); opacity: 1; }
     .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 0.75rem 1rem; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); color: rgba(255,255,255,0.85); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0; transition: opacity .3s; }
     .gallery-item:hover .gallery-caption { opacity: 1; }
-    .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.94); align-items: center; justify-content: center; padding: 3rem; }
+
+    /* Dot indicator on thumbnails that have sub-slides */
+    .gallery-item .slide-hint { position: absolute; top: 0.6rem; right: 0.7rem; display: flex; gap: 3px; opacity: 0; transition: opacity .3s; pointer-events: none; }
+    .gallery-item:hover .slide-hint { opacity: 1; }
+    .slide-hint span { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.85); display: block; }
+
+    /* Lightbox */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.94); align-items: center; justify-content: center; padding: 3rem; flex-direction: column; gap: 1.25rem; }
     .lightbox.open { display: flex; }
-    .lightbox img { max-width: 88vw; max-height: 85vh; object-fit: contain; display: block; transition: opacity .25s ease; }
-    .lightbox-caption { position: fixed; bottom: 1.75rem; left: 50%; transform: translateX(-50%); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); white-space: nowrap; pointer-events: none; }
-    .lightbox-close { position: fixed; top: 1.75rem; right: 2.5rem; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.45); cursor: pointer; background: none; border: none; font-family: var(--sans); transition: color .2s; }
+    .lightbox-img-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+    .lightbox-img-wrap img { max-width: 88vw; max-height: 78vh; object-fit: contain; display: block; transition: opacity .2s ease; }
+    .lightbox-close { position: fixed; top: 1.75rem; right: 2.5rem; font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.45); cursor: pointer; background: none; border: none; font-family: var(--sans); transition: color .2s; z-index: 10; }
     .lightbox-close:hover { color: #fff; }
+    .lightbox-caption { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.35); white-space: nowrap; }
+
+    /* Sub-slide arrows — only visible when there are sub-slides */
     .lightbox-nav { position: fixed; top: 50%; transform: translateY(-50%); background: none; border: none; color: rgba(255,255,255,0.35); font-size: 1.4rem; cursor: pointer; padding: 1.5rem; transition: color .2s; line-height: 1; }
     .lightbox-nav:hover { color: #fff; }
+    .lightbox-nav.hidden { display: none; }
     .lightbox-prev { left: 1rem; }
     .lightbox-next { right: 1rem; }
+
+    /* Dot indicators inside lightbox */
+    .lightbox-dots { display: flex; gap: 7px; align-items: center; min-height: 10px; }
+    .lightbox-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25); transition: background .2s, transform .2s; cursor: pointer; }
+    .lightbox-dots .dot.active { background: #fff; transform: scale(1.2); }
+
     .project-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--light-gray); margin-top: 6rem; }
     .proj-nav-item { background: var(--white); padding: 3rem; text-decoration: none; color: var(--black); display: flex; flex-direction: column; gap: 0.75rem; transition: background .3s; }
     .proj-nav-item:hover { background: var(--black); color: var(--white); }
@@ -89,46 +104,105 @@
       All Work
     </a>
   </nav>
+
   <div class="project-header">
     <div>
       <span class="project-tag">02 — Branding · Web · Email · Campaigns</span>
-      <h1 class="project-title">Brand & <em>Marketing</em> Suite</h1>
+      <h1 class="project-title">Brand &amp; <em>Marketing</em> Suite</h1>
     </div>
     <div class="project-meta-row">
       <div class="project-meta-item">
         <span class="project-meta-label">Type</span>
-        <span class="project-meta-value">Print</span>
+        <span class="project-meta-value">Branding</span>
       </div>
       <div class="project-meta-item">
         <span class="project-meta-label">Scope</span>
-        <span class="project-meta-value">Art Direction</span>
+        <span class="project-meta-value">Full Suite</span>
       </div>
     </div>
   </div>
+
   <div class="project-body">
     <div class="desc-section reveal">
       <div class="desc-label">Overview</div>
       <div class="desc-text">
-        <p>A full editorial design system for a quarterly culture and ideas magazine. The brief was to reinvent the publication's visual language from the ground up — creating something that felt both timeless and urgent on the newsstand.</p>
-        <p>The design philosophy centres on typographic tension: pairing a classical roman serif for long reads with a stark, condensed grotesque for headers. White space is used deliberately as a compositional tool, not a default.</p>
-        <p>The system includes a master grid, 40+ recurring layout templates, a custom pull-quote style, photo editing guidelines, and full digital adaptation for tablet and mobile formats.</p>
+        <p>A comprehensive brand and marketing project spanning identity design, web, email, and advertising. From the ground up, the work established a cohesive visual language that carried consistently across every touchpoint.</p>
+        <p>The identity system formed the foundation — logo, typography, color, and guidelines — which then informed a full website, a suite of email templates, and a range of digital and print marketing materials.</p>
+        <p>The result was a brand that felt unified and intentional whether a customer encountered it on a billboard, in their inbox, or on a product page.</p>
       </div>
     </div>
+
     <div class="gallery-section">
       <div class="gallery-header reveal">
         <span class="gallery-label">Project Gallery</span>
-        <span class="gallery-count">06 images</span>
+        <span class="gallery-count">06 items</span>
       </div>
       <div class="gallery-grid reveal">
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80" alt="" /><div class="gallery-caption">Cover Spread</div></div>
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="" /><div class="gallery-caption">Feature Spread</div></div>
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1525130413817-d45c1d127c42?w=600&q=80" alt="" /><div class="gallery-caption">Typography Detail</div></div>
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1493612276216-ee3925520721?w=600&q=80" alt="" /><div class="gallery-caption">Photo Essay Layout</div></div>
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=600&q=80" alt="" /><div class="gallery-caption">Grid System</div></div>
-        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=600&q=80" alt="" /><div class="gallery-caption">Contents Page</div></div>
+
+        <!-- Single image -->
+        <div class="gallery-item"
+          data-thumb="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80">
+          <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80" alt="" />
+          <div class="gallery-caption">Brand Identity</div>
+        </div>
+
+        <!-- Sub-slideshow: 3 slides -->
+        <div class="gallery-item"
+          data-thumb="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80"
+          data-slides='[
+            "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1600&q=85",
+            "https://images.unsplash.com/photo-1525130413817-d45c1d127c42?w=1600&q=85",
+            "https://images.unsplash.com/photo-1493612276216-ee3925520721?w=1600&q=85"
+          ]'>
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="" />
+          <div class="slide-hint"><span></span><span></span><span></span></div>
+          <div class="gallery-caption">Web Design</div>
+        </div>
+
+        <!-- Single image -->
+        <div class="gallery-item"
+          data-thumb="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=600&q=80">
+          <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?w=600&q=80" alt="" />
+          <div class="gallery-caption">Art Direction</div>
+        </div>
+
+        <!-- Sub-slideshow: 4 slides -->
+        <div class="gallery-item"
+          data-thumb="https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=600&q=80"
+          data-slides='[
+            "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=1600&q=85",
+            "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=1600&q=85",
+            "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1600&q=85",
+            "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=1600&q=85"
+          ]'>
+          <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=600&q=80" alt="" />
+          <div class="slide-hint"><span></span><span></span><span></span><span></span></div>
+          <div class="gallery-caption">Email Campaigns</div>
+        </div>
+
+        <!-- Sub-slideshow: 2 slides -->
+        <div class="gallery-item"
+          data-thumb="https://images.unsplash.com/photo-1636622433525-127afdf3662d?w=600&q=80"
+          data-slides='[
+            "https://images.unsplash.com/photo-1636622433525-127afdf3662d?w=1600&q=85",
+            "https://images.unsplash.com/photo-1616628188540-925618b98318?w=1600&q=85"
+          ]'>
+          <img src="https://images.unsplash.com/photo-1636622433525-127afdf3662d?w=600&q=80" alt="" />
+          <div class="slide-hint"><span></span><span></span></div>
+          <div class="gallery-caption">Ad & Marketing Design</div>
+        </div>
+
+        <!-- Single image -->
+        <div class="gallery-item"
+          data-thumb="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80">
+          <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80" alt="" />
+          <div class="gallery-caption">Brand Guidelines</div>
+        </div>
+
       </div>
     </div>
   </div>
+
   <div class="project-nav reveal">
     <a href="project-01.html" class="proj-nav-item prev">
       <span class="proj-nav-dir">&#8592; Previous Project</span>
@@ -139,46 +213,120 @@
       <span class="proj-nav-title">Web Experience<br />Design</span>
     </a>
   </div>
+
   <footer>
     <span>&#169; 2025 Suzanne Wright</span>
-    <span>Editorial Magazine Design</span>
+    <span>Brand &amp; Marketing Suite</span>
     <span>02 / 04</span>
   </footer>
+
+  <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" id="lbClose">Close ✕</button>
-    <button class="lightbox-nav lightbox-prev" id="lbPrev">&#8592;</button>
-    <img src="" alt="" id="lbImg" />
-    <button class="lightbox-nav lightbox-next" id="lbNext">&#8594;</button>
+    <button class="lightbox-nav lightbox-prev hidden" id="lbPrev">&#8592;</button>
+    <div class="lightbox-img-wrap">
+      <img src="" alt="" id="lbImg" />
+    </div>
+    <button class="lightbox-nav lightbox-next hidden" id="lbNext">&#8594;</button>
+    <div class="lightbox-dots" id="lbDots"></div>
     <div class="lightbox-caption" id="lbCaption"></div>
   </div>
-  <script>
 
+  <script>
     const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*100);obs.unobserve(e.target);}});},{threshold:0.08});
     document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-    const lightbox=document.getElementById('lightbox');
-    const lbImg=document.getElementById('lbImg');
-    const lbCaption=document.getElementById('lbCaption');
-    const items=Array.from(document.querySelectorAll('.gallery-item'));
-    let current=0;
-    function openLightbox(i){
-      current=i;
-      const img=items[i].querySelector('img');
-      const cap=items[i].querySelector('.gallery-caption');
-      lbImg.src=img.src.replace(/w=\d+/,'w=1600');
-      lbCaption.textContent=cap?cap.textContent:'';
+
+    const lightbox  = document.getElementById('lightbox');
+    const lbImg     = document.getElementById('lbImg');
+    const lbCaption = document.getElementById('lbCaption');
+    const lbDots    = document.getElementById('lbDots');
+    const lbPrev    = document.getElementById('lbPrev');
+    const lbNext    = document.getElementById('lbNext');
+    const lbClose   = document.getElementById('lbClose');
+
+    let slides    = [];   // array of image URLs for current lightbox
+    let slideIdx  = 0;    // current slide index
+
+    function buildDots(count, active) {
+      lbDots.innerHTML = '';
+      if (count <= 1) return;
+      for (let i = 0; i < count; i++) {
+        const d = document.createElement('span');
+        d.className = 'dot' + (i === active ? ' active' : '');
+        d.addEventListener('click', e => { e.stopPropagation(); goToSlide(i); });
+        lbDots.appendChild(d);
+      }
+    }
+
+    function goToSlide(i) {
+      slideIdx = i;
+      lbImg.style.opacity = '0';
+      setTimeout(() => {
+        lbImg.src = slides[i];
+        lbImg.style.opacity = '1';
+      }, 150);
+      buildDots(slides.length, i);
+    }
+
+    function openLightbox(item) {
+      const cap   = item.querySelector('.gallery-caption');
+      const raw   = item.dataset.slides;
+      const thumb = item.dataset.thumb || item.querySelector('img').src;
+
+      lbCaption.textContent = cap ? cap.textContent : '';
+
+      if (raw) {
+        slides = JSON.parse(raw);
+      } else {
+        // single image — use higher-res version of thumbnail
+        slides = [thumb.replace(/w=\d+/, 'w=1600')];
+      }
+
+      slideIdx = 0;
+      lbImg.src = slides[0];
+
+      // Show / hide arrows
+      if (slides.length > 1) {
+        lbPrev.classList.remove('hidden');
+        lbNext.classList.remove('hidden');
+      } else {
+        lbPrev.classList.add('hidden');
+        lbNext.classList.add('hidden');
+      }
+
+      buildDots(slides.length, 0);
       lightbox.classList.add('open');
     }
-    function closeLightbox(){lightbox.classList.remove('open');lbImg.src='';}
-    items.forEach((item,i)=>item.addEventListener('click',()=>openLightbox(i)));
-    document.getElementById('lbClose').addEventListener('click',e=>{e.stopPropagation();closeLightbox();});
-    document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();openLightbox((current-1+items.length)%items.length);});
-    document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();openLightbox((current+1)%items.length);});
-    lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
-    document.addEventListener('keydown',e=>{
-      if(!lightbox.classList.contains('open'))return;
-      if(e.key==='Escape')closeLightbox();
-      if(e.key==='ArrowLeft')openLightbox((current-1+items.length)%items.length);
-      if(e.key==='ArrowRight')openLightbox((current+1)%items.length);
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lbImg.src = '';
+      lbDots.innerHTML = '';
+      slides = [];
+    }
+
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.addEventListener('click', () => openLightbox(item));
+    });
+
+    lbClose.addEventListener('click', e => { e.stopPropagation(); closeLightbox(); });
+
+    lbPrev.addEventListener('click', e => {
+      e.stopPropagation();
+      goToSlide((slideIdx - 1 + slides.length) % slides.length);
+    });
+    lbNext.addEventListener('click', e => {
+      e.stopPropagation();
+      goToSlide((slideIdx + 1) % slides.length);
+    });
+
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft' && slides.length > 1)  goToSlide((slideIdx - 1 + slides.length) % slides.length);
+      if (e.key === 'ArrowRight' && slides.length > 1) goToSlide((slideIdx + 1) % slides.length);
     });
   </script>
 </body>
