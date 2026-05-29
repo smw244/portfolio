@@ -378,6 +378,36 @@
       #contact { grid-template-columns: 1fr; gap: 3rem; }
       footer { padding: 1.5rem; }
     }
+    .proj-arrow {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  position: relative;
+  flex-shrink: 0;
+}
+.proj-arrow::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-top: 1.5px solid var(--black);
+  border-right: 1.5px solid var(--black);
+  transform: rotate(45deg);
+  transform-origin: top right;
+}
+.proj-arrow::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  right: 0;
+  width: 12px;
+  height: 1.5px;
+  background: var(--black);
+  transform: rotate(45deg);
+  transform-origin: right center;
+}
   </style>
 </head>
 <body>
@@ -429,7 +459,7 @@
         <span class="proj-title">Brand Identity<br />System</span>
         <span class="proj-tags">Branding · Visual Identity</span>
         <span class="proj-year">2024</span>
-        <span class="proj-arrow">↗</span>
+        <span class="proj-arrow"></span>
       </a>
 
       <a class="project-item reveal" href="project-02.html">
@@ -437,7 +467,7 @@
         <span class="proj-title">Brand & Marketing<br />Suite</span>
         <span class="proj-tags">Branding · Web · Email · Campaigns</span>
         <span class="proj-year">2023</span>
-        <span class="proj-arrow">↗</span>
+       <span class="proj-arrow"></span>
       </a>
 
       <a class="project-item reveal" href="project-03.html">
@@ -445,7 +475,7 @@
         <span class="proj-title">Web Experience<br />Design</span>
         <span class="proj-tags">UX/UI · Digital</span>
         <span class="proj-year">2023</span>
-        <span class="proj-arrow">↗</span>
+       <span class="proj-arrow"></span>
       </a>
 
       <a class="project-item reveal" href="project-04.html">
@@ -453,7 +483,7 @@
         <span class="proj-title">Packaging<br />Concept</span>
         <span class="proj-tags">Packaging · 3D</span>
         <span class="proj-year">2023</span>
-        <span class="proj-arrow">↗</span>
+       <span class="proj-arrow"></span>
       </a>
 
     </div>
