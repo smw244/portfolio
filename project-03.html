@@ -43,8 +43,13 @@
     .gallery-count { font-family: var(--serif); font-style: italic; font-size: 0.9rem; color: var(--light-gray); }
     .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
     .gallery-item { overflow: hidden; background: var(--light-gray); position: relative; aspect-ratio: 1; cursor: zoom-in; }
-    .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease, opacity .4s; opacity: 0.92; }
-    .gallery-item:hover img { transform: scale(1.05); opacity: 1; }
+    .gallery-item img, .gallery-item video { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease, opacity .4s; opacity: 0.92; }
+    .gallery-item:hover img, .gallery-item:hover video { transform: scale(1.05); opacity: 1; }
+    .gallery-item video { pointer-events: none; }
+    .gallery-item .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 40px; height: 40px; background: rgba(255,255,255,0.85); border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .3s; pointer-events: none; }
+    .gallery-item .play-icon::after { content: ''; border-left: 14px solid var(--black); border-top: 8px solid transparent; border-bottom: 8px solid transparent; margin-left: 3px; }
+    .gallery-item:hover .play-icon { opacity: 1; }
+    .lightbox video { max-width: 88vw; max-height: 78vh; display: block; outline: none; }
     .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 0.75rem 1rem; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); color: rgba(255,255,255,0.85); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0; transition: opacity .3s; }
     .gallery-item:hover .gallery-caption { opacity: 1; }
 
@@ -150,8 +155,8 @@
 
         <!-- Single image -->
         <div class="gallery-item"
-          data-thumb="smw244/portfolio/Sf_industries_v1.mp4">
-          <img src="smw244/portfolio/Sf_industries_v1.mp4" alt="" />
+          data-thumb="https://images.unsplash.com/photo-1555421689-491a97ff2040?w=600&q=80">
+          <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?w=600&q=80" alt="" />
           <div class="gallery-caption">Navigation System</div>
         </div>
 
@@ -228,7 +233,8 @@
     <button class="lightbox-close" id="lbClose">Close ✕</button>
     <button class="lightbox-nav lightbox-prev hidden" id="lbPrev">&#8592;</button>
     <div class="lightbox-img-wrap">
-      <img src="" alt="" id="lbImg" />
+      <img src="" alt="" id="lbImg" style="display:none;" />
+      <video id="lbVideo" controls style="display:none; max-width:88vw; max-height:78vh;"></video>
     </div>
     <button class="lightbox-nav lightbox-next hidden" id="lbNext">&#8594;</button>
     <div class="lightbox-dots" id="lbDots"></div>
@@ -241,6 +247,7 @@
 
     const lightbox  = document.getElementById('lightbox');
     const lbImg     = document.getElementById('lbImg');
+    const lbVideo   = document.getElementById('lbVideo');
     const lbCaption = document.getElementById('lbCaption');
     const lbDots    = document.getElementById('lbDots');
     const lbPrev    = document.getElementById('lbPrev');
@@ -249,6 +256,10 @@
 
     let slides   = [];
     let slideIdx = 0;
+
+    function isVideo(src) {
+      return src && src.match(/\.(mp4|webm|ogg|mov)(\?.*)?$/i);
+    }
 
     function buildDots(count, active) {
       lbDots.innerHTML = '';
@@ -261,27 +272,52 @@
       }
     }
 
+    function showSlide(src) {
+      if (isVideo(src)) {
+        lbImg.style.display = 'none';
+        lbImg.src = '';
+        lbVideo.src = src;
+        lbVideo.style.display = 'block';
+        lbVideo.play();
+      } else {
+        lbVideo.pause();
+        lbVideo.src = '';
+        lbVideo.style.display = 'none';
+        lbImg.src = src;
+        lbImg.style.display = 'block';
+      }
+    }
+
     function goToSlide(i) {
       slideIdx = i;
       lbImg.style.opacity = '0';
       setTimeout(() => {
-        lbImg.src = slides[i];
+        showSlide(slides[i]);
         lbImg.style.opacity = '1';
       }, 150);
       buildDots(slides.length, i);
     }
 
     function openLightbox(item) {
-      const cap   = item.querySelector('.gallery-caption');
-      const raw   = item.dataset.slides;
-      const thumb = item.dataset.thumb || item.querySelector('img').src;
+      const cap     = item.querySelector('.gallery-caption');
+      const raw     = item.dataset.slides;
+      const vidEl   = item.querySelector('video');
+      const imgEl   = item.querySelector('img');
+      const thumb   = item.dataset.thumb || (vidEl ? vidEl.src : imgEl ? imgEl.src : '');
 
       lbCaption.textContent = cap ? cap.textContent : '';
 
-      slides = raw ? JSON.parse(raw) : [thumb.replace(/w=\d+/, 'w=1600')];
+      if (raw) {
+        slides = JSON.parse(raw);
+      } else if (isVideo(thumb)) {
+        slides = [thumb];
+      } else {
+        slides = [thumb.replace(/w=\d+/, 'w=1600')];
+      }
+
       slideIdx = 0;
-      lbImg.src = slides[0];
       lbImg.style.opacity = '1';
+      showSlide(slides[0]);
 
       if (slides.length > 1) {
         lbPrev.classList.remove('hidden');
@@ -298,6 +334,10 @@
     function closeLightbox() {
       lightbox.classList.remove('open');
       lbImg.src = '';
+      lbImg.style.display = 'none';
+      lbVideo.pause();
+      lbVideo.src = '';
+      lbVideo.style.display = 'none';
       lbDots.innerHTML = '';
       slides = [];
     }
