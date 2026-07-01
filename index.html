@@ -286,37 +286,34 @@
 
     /* Contact */
     #contact {
+      padding: 8rem 3rem;
+    }
+    .contact-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 4rem;
       align-items: start;
     }
-    .contact-left {}
-    .contact-heading {
-      font-family: var(--serif);
-      font-size: clamp(3rem, 5vw, 5rem);
-      line-height: 1;
-      letter-spacing: -0.03em;
-      margin-bottom: 2rem;
-    }
-    .contact-heading em { font-style: italic; color: var(--gray); }
-    .contact-sub {
-      font-size: 0.9rem;
-      color: var(--gray);
-      line-height: 1.7;
-      max-width: 340px;
-    }
-    .contact-right {
-      padding-top: 1rem;
+    .contact-links-col {
       display: flex;
       flex-direction: column;
       gap: 0;
+      padding-top: 0.5rem;
     }
+    .contact-heading {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+      color: var(--gray);
+    }
+    .contact-heading em { font-style: italic; color: var(--black); }
     .contact-link {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.6rem 0;
+      padding: 1.4rem 0;
       border-top: 1px solid var(--light-gray);
       text-decoration: none;
       color: var(--black);
@@ -330,6 +327,38 @@
     .contact-link:hover { padding-left: 0.75rem; }
     .contact-link-arrow { font-size: 1rem; transition: transform 0.3s; }
     .contact-link:hover .contact-link-arrow { transform: translate(4px, -4px); }
+
+    .contact-photo-col {}
+    .contact-photo {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: var(--light-gray);
+    }
+    .contact-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%);
+    }
+
+    .contact-about-col {
+      padding-top: 0.5rem;
+    }
+    .contact-about-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .contact-about-text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #555;
+    }
 
     /* Footer */
     footer {
@@ -483,23 +512,38 @@
 
   <!-- Contact -->
   <section id="contact">
-    <div class="contact-left reveal">
-      <h2 class="contact-heading">Let's<br /><em>work</em><br />together.</h2>
-      <p class="contact-sub">Open to freelance projects, full-time roles, and interesting collaborations. Don't hesitate to reach out.</p>
-    </div>
-    <div class="contact-right reveal">
-      <a href="/cdn-cgi/l/email-protection#6f070a0303002f16001a1d010e020a410c0002" class="contact-link">
-        Email <span class="contact-link-arrow"></span>
-      </a>
-      <a href="https://linkedin.com" class="contact-link" target="_blank">
-        LinkedIn <span class="contact-link-arrow"></span>
-      </a>
-      <a href="https://instagram.com" class="contact-link" target="_blank">
-        Instagram <span class="contact-link-arrow"></span>
-      </a>
-      <a href="https://dribbble.com" class="contact-link" target="_blank">
-        Dribbble <span class="contact-link-arrow"></span>
-      </a>
+    <div class="contact-grid">
+
+      <!-- Col 1: Links -->
+      <div class="contact-links-col reveal">
+        <h2 class="contact-heading">Let's<br /><em>work</em><br />together.</h2>
+        <a href="mailto:hello@suzannewright.com" class="contact-link">
+          Email <span class="contact-link-arrow">↗</span>
+        </a>
+        <a href="https://linkedin.com" class="contact-link" target="_blank">
+          LinkedIn <span class="contact-link-arrow">↗</span>
+        </a>
+        <a href="https://instagram.com" class="contact-link" target="_blank">
+          Instagram <span class="contact-link-arrow">↗</span>
+        </a>
+        <a href="https://dribbble.com" class="contact-link" target="_blank">
+          Dribbble <span class="contact-link-arrow">↗</span>
+        </a>
+      </div>
+
+      <!-- Col 2: Photo -->
+      <div class="contact-photo-col reveal">
+        <div class="contact-photo">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80" alt="Suzanne Wright" />
+        </div>
+      </div>
+
+      <!-- Col 3: About -->
+      <div class="contact-about-col reveal">
+        <span class="contact-about-label">About</span>
+        <p class="contact-about-text">I'm a visual designer with a passion for building brands that feel as good as they look. With a background spanning identity, web, and marketing design, I bring a strategic eye and a careful hand to every project.<br /><br />Based in New York, open to freelance projects, collaborations, and full-time opportunities.</p>
+      </div>
+
     </div>
   </section>
 
