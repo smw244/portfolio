@@ -212,22 +212,32 @@ nav {
     }
 
     /* Projects */
-    .project-item {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  aspect-ratio: 1 / 1;
-  display: block;
-  overflow: hidden;
-  cursor: pointer;
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+.project-card {
+  display: flex;
+  gap: 1.5rem;
+  align-items: stretch;
   transition: all .3s ease;
 }
-.project-item:hover {
-  opacity: 0.95;
+.project-image {
+  width: 220px;
+  min-width: 220px;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
 }
-.project-info {
-  background: var(--white);
-  padding: 1.5rem;
+.project-text {
+  background: #f9f8f5;
+  padding: 1.75rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .project-num {
   font-size: 0.7rem;
@@ -249,16 +259,11 @@ nav {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--gray);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.8rem;
 }
 .project-year {
   font-size: 0.7rem;
   color: var(--gray);
-}
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
 }
 
 @media (max-width: 768px) {
@@ -266,9 +271,6 @@ nav {
     grid-template-columns: 1fr;
   }
 }
-
-
-
     /* Contact */
     #contact {
       padding: 8rem 3rem;
@@ -453,7 +455,7 @@ nav {
   </header>
 
   <!-- Projects -->
- <section id="projects">
+<section id="projects">
   <div class="section-header reveal">
     <span class="section-label">Selected work</span>
     <span class="project-count">04</span>
@@ -461,9 +463,9 @@ nav {
   
   <div class="projects-grid reveal">
     
-    <div>
-      <a href="project-01.html" class="project-item" style="background-image: url('https://images.unsplash.com/photo-1636622433525-127afdf3662d?w=600&q=80');"></a>
-      <div class="project-info">
+    <div class="project-card">
+      <a href="project-01.html" class="project-image" style="background-image: url('https://images.unsplash.com/photo-1636622433525-127afdf3662d?w=500&q=80');"></a>
+      <div class="project-text">
         <div class="project-num">01</div>
         <h3 class="project-title">Brand Identity System</h3>
         <div class="project-meta">Branding · Visual Identity</div>
@@ -471,9 +473,9 @@ nav {
       </div>
     </div>
 
-    <div>
-      <a href="project-02.html" class="project-item" style="background-image: url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80');"></a>
-      <div class="project-info">
+    <div class="project-card">
+      <a href="project-02.html" class="project-image" style="background-image: url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=500&q=80');"></a>
+      <div class="project-text">
         <div class="project-num">02</div>
         <h3 class="project-title">Brand & Marketing Suite</h3>
         <div class="project-meta">Branding · Web · Email · Campaigns</div>
@@ -481,9 +483,9 @@ nav {
       </div>
     </div>
 
-    <div>
-      <a href="project-03.html" class="project-item" style="background-image: url('https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=80');"></a>
-      <div class="project-info">
+    <div class="project-card">
+      <a href="project-03.html" class="project-image" style="background-image: url('https://images.unsplash.com/photo-1547658719-da2b51169166?w=500&q=80');"></a>
+      <div class="project-text">
         <div class="project-num">03</div>
         <h3 class="project-title">Web Experience Design</h3>
         <div class="project-meta">UX/UI · Digital</div>
@@ -491,9 +493,9 @@ nav {
       </div>
     </div>
 
-    <div>
-      <a href="project-04.html" class="project-item" style="background-image: url('https://images.unsplash.com/photo-1612817288484-6f916006741a?w=600&q=80');"></a>
-      <div class="project-info">
+    <div class="project-card">
+      <a href="project-04.html" class="project-image" style="background-image: url('https://images.unsplash.com/photo-1612817288484-6f916006741a?w=500&q=80');"></a>
+      <div class="project-text">
         <div class="project-num">04</div>
         <h3 class="project-title">Marketplace Brand Direction</h3>
         <div class="project-meta">Art Direction · Brand & Marketing</div>
