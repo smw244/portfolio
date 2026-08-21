@@ -78,10 +78,11 @@ nav {
   grid-template-columns: 1fr 1.5fr;
   gap: 4rem;
   align-items: start;
-  padding: 0 3rem;
+  padding: 0 5rem;
   max-width: 1400px;
   margin: 0 auto;
 }
+
 
 /* Hero section */
 .hero-section {
@@ -138,7 +139,7 @@ nav {
 }
 .project-image {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 2;
   background-size: cover;
   background-position: center;
   cursor: pointer;
@@ -169,12 +170,16 @@ nav {
 }
 
 /* Contact section - 3 columns, reordered */
+#contact {
+  padding: 8rem 5rem;
+}
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 4rem;
   align-items: start;
 }
+
 .contact-about-col {
   order: 1;
   padding-top: 0.5rem;
@@ -258,15 +263,19 @@ nav {
   .main-content {
     grid-template-columns: 1fr;
     gap: 3rem;
+    padding: 0 3rem;
   }
-  .hero-section, .projects-section {
-    padding-top: 0;
+  #contact {
+    padding: 5rem 3rem;
   }
 }
 
 @media (max-width: 768px) {
   .main-content {
     padding: 0 1.5rem;
+  }
+  #contact {
+    padding: 5rem 1.5rem;
   }
   .projects-grid {
     grid-template-columns: 1fr;
