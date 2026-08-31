@@ -72,17 +72,18 @@ nav {
     }
     .nav-links a:hover::after { width: 100%; }
 
-/* Main container */
+/* Main container - 2 columns */
 .main-content {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1.5fr;
   gap: 6rem;
   padding: 8rem 6rem;
   max-width: 1400px;
   margin: 0 auto;
+  align-items: start;
 }
 
-/* Hero section */
+/* Hero section - left column */
 .hero-section {
   padding-top: 0;
 }
@@ -102,7 +103,6 @@ nav {
   line-height: 1.8;
   color: #555;
   margin-bottom: 2rem;
-  max-width: 600px;
 }
 .hero-cta {
   display: flex;
@@ -120,7 +120,7 @@ nav {
   background: var(--black);
 }
 
-/* Projects gallery below */
+/* Projects gallery - right column */
 .projects-section {
   padding-top: 0;
 }
@@ -182,6 +182,7 @@ nav {
 
 @media (max-width: 1024px) {
   .main-content {
+    grid-template-columns: 1fr;
     padding: 6rem 4rem;
     gap: 4rem;
   }
