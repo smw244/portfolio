@@ -72,38 +72,41 @@ nav {
     }
     .nav-links a:hover::after { width: 100%; }
 
-/* Main container - 2 columns */
+/* Main container */
 .main-content {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 6rem;
   padding: 8rem 6rem;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+/* Hero section - 2 columns */
+.hero-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  margin-bottom: 6rem;
   align-items: start;
 }
 
-/* Hero section - left column */
-.hero-section {
-  padding-top: 0;
-}
 .hero-title {
   font-family: var(--serif);
   font-size: clamp(2.5rem, 4vw, 4rem);
   line-height: 1;
   letter-spacing: -0.03em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0;
 }
 .hero-title em {
   font-style: italic;
   color: var(--accent-color);
 }
+
 .hero-desc {
   font-size: 1rem;
   line-height: 1.8;
   color: #555;
   margin-bottom: 2rem;
 }
+
 .hero-cta {
   display: flex;
   align-items: center;
@@ -113,6 +116,7 @@ nav {
   text-transform: uppercase;
   color: var(--black);
   text-decoration: none;
+  width: fit-content;
 }
 .hero-cta span {
   width: 28px;
@@ -120,15 +124,18 @@ nav {
   background: var(--black);
 }
 
-/* Projects gallery - right column */
+/* Projects section - below hero */
 .projects-section {
   padding-top: 0;
 }
+
+/* 2x2 grid */
 .projects-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
 }
+
 .project-card {
   display: flex;
   flex-direction: column;
@@ -136,24 +143,28 @@ nav {
   text-decoration: none;
   color: inherit;
 }
+
 .project-image {
   width: 100%;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 4 / 3;
   background-size: cover;
   background-position: center;
   cursor: pointer;
 }
+
 .project-info {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
 }
+
 .project-num {
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gray);
 }
+
 .project-title {
   font-family: var(--serif);
   font-size: 1.1rem;
@@ -161,6 +172,7 @@ nav {
   letter-spacing: -0.02em;
   color: var(--black);
 }
+
 .project-meta {
   font-size: 0.65rem;
   letter-spacing: 0.15em;
@@ -182,9 +194,15 @@ nav {
 
 @media (max-width: 1024px) {
   .main-content {
-    grid-template-columns: 1fr;
     padding: 6rem 4rem;
-    gap: 4rem;
+  }
+  .hero-section {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+  .projects-grid {
+    grid-template-columns: 1fr;
   }
   #contact {
     padding: 6rem 4rem;
