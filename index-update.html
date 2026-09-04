@@ -183,6 +183,7 @@ nav {
 /* Contact section */
 #contact {
   padding: 8rem 6rem;
+  background: var(--white);
 }
 
 .contact-grid {
@@ -190,29 +191,110 @@ nav {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 4rem;
   align-items: start;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.contact-about-col {
+  grid-column: 1;
+}
+
+.contact-about-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.contact-about-text {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #555;
+}
+
+.contact-photo-col {
+  grid-column: 2;
+}
+
+.contact-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--light-gray);
+}
+
+.contact-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.contact-links-col {
+  grid-column: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contact-heading {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  color: var(--gray);
+}
+
+.contact-heading em {
+  font-style: italic;
+  color: var(--black);
+}
+
+.contact-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 0;
+  border-top: 1px solid var(--light-gray);
+  text-decoration: none;
+  color: var(--black);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: padding-left 0.3s ease;
+}
+
+.contact-link:last-child {
+  border-bottom: 1px solid var(--light-gray);
+}
+
+.contact-link:hover {
+  padding-left: 0.75rem;
+}
+
+.contact-link-arrow {
+  font-size: 1rem;
+  transition: transform 0.3s;
+}
+
+.contact-link:hover .contact-link-arrow {
+  transform: translate(4px, -4px);
 }
 
 @media (max-width: 1024px) {
-  .main-content {
-    padding: 6rem 4rem;
-  }
-  .hero-section {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    margin-bottom: 4rem;
-  }
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
   #contact {
     padding: 6rem 4rem;
+  }
+  .contact-grid {
+    gap: 3rem;
   }
 }
 
 @media (max-width: 768px) {
-  .main-content {
-    padding: 4rem 1.5rem;
-  }
   #contact {
     padding: 4rem 1.5rem;
   }
@@ -220,11 +302,13 @@ nav {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+  .contact-about-col, .contact-photo-col, .contact-links-col {
+    grid-column: auto;
+  }
   .contact-photo {
     aspect-ratio: 4 / 3;
   }
 }
-
 
 
   </style>
