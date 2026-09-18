@@ -140,10 +140,15 @@
       </div>
       <div class="gallery-grid reveal">
 
-        <!-- Single image -->
+<!-- Sub-slideshow: 2 slides -->
         <div class="gallery-item"
-          data-thumb="os-brand.png">
-          <img src="os-brand.png" alt="" />
+          data-thumb="os-brand-thumb.png"
+          data-slides='[
+            "os-brand-thumb.png",
+            "os-brand.png"
+          ]'>
+          <img src="os-brand-thumb.png" style="object-position: top;" alt="" />
+          <div class="slide-hint"><span></span><span></span></div>
           <div class="gallery-caption">UI Brand Guidelines</div>
         </div>
 
