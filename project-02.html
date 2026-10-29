@@ -55,6 +55,9 @@
     .slide-hint span { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.85); display: block; }
 
     /* Lightbox */
+ .lightbox-img-wrap {
+  max-height: 100vh;
+}
 #lbImg {
   cursor: zoom-in;
 }
@@ -228,7 +231,7 @@
           data-thumb="cc-hmpg-desktop-thumb.png"
           data-slides='[
           "cc-hmpg-desktop-thumb.png",
-            "homepage_not-logged-in_hifi-final-updates_2X.png"
+            "homepage_not-logged-in_hifi-final-updates_2X.png" data-zoom
           ]'>
           <img src="cc-hmpg-desktop-thumb.png"  alt="" />
           <div class="slide-hint"><span></span><span></span></div>
@@ -365,16 +368,27 @@
       if (e.key === 'ArrowRight' && slides.length > 1) goToSlide((slideIdx + 1) % slides.length);
     });
   </script>
-  <script>
+ <script>
   (function () {
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lbImg');
     const wrap = lb.querySelector('.lightbox-img-wrap');
+    let itemZoomable = false;
+
+    // Runs before the gallery's own click handler, so it knows which item opened the lightbox
+    document.addEventListener('click', e => {
+      const item = e.target.closest('[data-slides]');
+      if (item) {
+        itemZoomable = item.hasAttribute('data-zoom');
+        btn.style.display = itemZoomable ? '' : 'none';
+      }
+    }, true);
 
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'lightbox-zoom-btn';
     btn.textContent = 'Zoom';
+    btn.style.display = 'none';
     lb.appendChild(btn);
 
     function setZoom(on) {
@@ -385,15 +399,16 @@
 
     btn.addEventListener('click', e => {
       e.stopPropagation();
+      if (!itemZoomable) return;
       setZoom(!img.classList.contains('lb-zoomed'));
     });
 
     img.addEventListener('click', e => {
+      if (!itemZoomable) return;
       e.stopPropagation();
       setZoom(!img.classList.contains('lb-zoomed'));
     });
 
-    // Reset zoom when the visitor closes the lightbox or changes slides
     ['lbClose', 'lbPrev', 'lbNext'].forEach(id => {
       document.getElementById(id).addEventListener('click', () => setZoom(false));
     });
@@ -401,7 +416,6 @@
       if (['ArrowLeft', 'ArrowRight', 'Escape'].includes(e.key)) setZoom(false);
     });
 
-    // Reset zoom whenever your existing script loads a new slide
     new MutationObserver(() => setZoom(false))
       .observe(img, { attributes: true, attributeFilter: ['src'] });
   })();
