@@ -55,20 +55,30 @@
     .slide-hint span { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.85); display: block; }
 
     /* Lightbox */
- .lightbox-img-wrap {
-  max-height: 100vh;
+/* Zoom level: 1 = fit to screen, 1.25 = subtle, 1.6 = current, 2.5 = very close */
+.lightbox {
+  --zoom-level: 1.5;
 }
+
 #lbImg {
   cursor: zoom-in;
 }
+
+/* Zoomed image: sized from the zoom level, starts at the top, and scrolls */
 #lbImg.lb-zoomed {
   max-width: none;
   max-height: none;
-  width: 180%;
+  width: calc(88vw * var(--zoom-level));
   height: auto;
+  margin: auto;
   cursor: zoom-out;
 }
+
+/* When zoomed, the wrap becomes a fixed scroll window instead of a centered box */
 .lightbox-img-wrap.is-zoomed {
+  display: block;
+  width: 88vw;
+  height: 78vh;
   overflow: auto;
 }
 .lightbox-zoom-btn {
