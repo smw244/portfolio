@@ -377,29 +377,13 @@
       if (e.key === 'ArrowRight' && slides.length > 1) goToSlide((slideIdx + 1) % slides.length);
     });
   </script>
- <script>
+<script>
   (function () {
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lbImg');
     const wrap = lb.querySelector('.lightbox-img-wrap');
+    let activeItem = null;
     let itemZoomable = false;
-
-    // Runs before the gallery's own click handler, so it knows which item opened the lightbox
-    document.addEventListener('click', e => {
-      const item = e.target.closest('[data-slides]');
-      if (item) {
-        itemZoomable = item.hasAttribute('data-zoom');
-        btn.style.display = itemZoomable ? '' : 'none';
-      }
-    }, true);
-    document.addEventListener('click', e => {
-  const item = e.target.closest('.gallery-item');
-  if (item) {
-    itemZoomable = item.hasAttribute('data-zoom');
-    btn.style.display = itemZoomable ? '' : 'none';
-    lb.classList.toggle('zoomable', itemZoomable);   // <-- add this line
-  }
-}, true);
 
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -408,11 +392,35 @@
     btn.style.display = 'none';
     lb.appendChild(btn);
 
+    // slideIdx is the current slide index (0-based) from the gallery script
+    function slideCanZoom() {
+      if (!activeItem) return false;
+      if (activeItem.hasAttribute('data-zoom')) return true;
+      const list = (activeItem.dataset.zoomSlides || '')
+        .split(',')
+        .map(s => parseInt(s.trim(), 10));
+      return list.includes(slideIdx + 1);
+    }
+
     function setZoom(on) {
       img.classList.toggle('lb-zoomed', on);
       wrap.classList.toggle('is-zoomed', on);
       btn.textContent = on ? 'Fit' : 'Zoom';
     }
+
+    // Runs whenever the lightbox image changes (open, next, previous, dots)
+    function updateForSlide() {
+      setZoom(false);
+      itemZoomable = slideCanZoom();
+      btn.style.display = itemZoomable ? '' : 'none';
+      lb.classList.toggle('zoomable', itemZoomable);
+    }
+
+    // Remember which gallery item was clicked
+    document.addEventListener('click', e => {
+      const item = e.target.closest('.gallery-item');
+      if (item) activeItem = item;
+    }, true);
 
     btn.addEventListener('click', e => {
       e.stopPropagation();
@@ -433,7 +441,7 @@
       if (['ArrowLeft', 'ArrowRight', 'Escape'].includes(e.key)) setZoom(false);
     });
 
-    new MutationObserver(() => setZoom(false))
+    new MutationObserver(updateForSlide)
       .observe(img, { attributes: true, attributeFilter: ['src'] });
   })();
 </script>
