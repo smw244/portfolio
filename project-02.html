@@ -60,7 +60,7 @@
   --zoom-level: 1.25;
 }
 
-#lbImg {
+.lightbox.zoomable #lbImg {
   cursor: zoom-in;
 }
 
@@ -392,6 +392,14 @@
         btn.style.display = itemZoomable ? '' : 'none';
       }
     }, true);
+    document.addEventListener('click', e => {
+  const item = e.target.closest('.gallery-item');
+  if (item) {
+    itemZoomable = item.hasAttribute('data-zoom');
+    btn.style.display = itemZoomable ? '' : 'none';
+    lb.classList.toggle('zoomable', itemZoomable);   // <-- add this line
+  }
+}, true);
 
     const btn = document.createElement('button');
     btn.type = 'button';
