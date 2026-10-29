@@ -55,6 +55,38 @@
     .slide-hint span { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.85); display: block; }
 
     /* Lightbox */
+#lbImg {
+  cursor: zoom-in;
+}
+#lbImg.lb-zoomed {
+  max-width: none;
+  max-height: none;
+  width: 180%;
+  height: auto;
+  cursor: zoom-out;
+}
+.lightbox-img-wrap.is-zoomed {
+  overflow: auto;
+}
+.lightbox-zoom-btn {
+  position: absolute;
+  top: 1.5rem;
+  left: 2rem;
+  background: none;
+  border: 1px solid rgba(245, 244, 240, 0.4);
+  color: #f5f4f0;
+  font-family: inherit;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  z-index: 2;
+}
+.lightbox-zoom-btn:hover {
+  border-color: #f5f4f0;
+}
+
     .lightbox { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.94); align-items: center; justify-content: center; padding: 3rem; flex-direction: column; gap: 1.25rem; }
     .lightbox.open { display: flex; }
     .lightbox-img-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
@@ -136,7 +168,7 @@
     <div class="gallery-section">
       <div class="gallery-header reveal">
         <span class="gallery-label">Project Gallery</span>
-        <span class="gallery-count">06 items</span>
+       
       </div>
       <div class="gallery-grid reveal">
 
@@ -177,12 +209,12 @@
 
 
 
-        <!-- Sub-slideshow: 2 slides -->
+        <!-- Sub-slideshow: 1 slides -->
         <div class="gallery-item"
           data-thumb="cc-group-ordering-pdf.png"
           data-slides='[
             "cc-group-ordering-pdf.png",
-            "https://images.unsplash.com/photo-1616628188540-925618b98318?w=1600&q=85"
+          
           ]'>
           <img src="cc-group-ordering-pdf.png" style="object-position: top;" alt="" />
           <div class="slide-hint"><span></span><span></span></div>
@@ -333,5 +365,46 @@
       if (e.key === 'ArrowRight' && slides.length > 1) goToSlide((slideIdx + 1) % slides.length);
     });
   </script>
+  <script>
+  (function () {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lbImg');
+    const wrap = lb.querySelector('.lightbox-img-wrap');
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'lightbox-zoom-btn';
+    btn.textContent = 'Zoom';
+    lb.appendChild(btn);
+
+    function setZoom(on) {
+      img.classList.toggle('lb-zoomed', on);
+      wrap.classList.toggle('is-zoomed', on);
+      btn.textContent = on ? 'Fit' : 'Zoom';
+    }
+
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      setZoom(!img.classList.contains('lb-zoomed'));
+    });
+
+    img.addEventListener('click', e => {
+      e.stopPropagation();
+      setZoom(!img.classList.contains('lb-zoomed'));
+    });
+
+    // Reset zoom when the visitor closes the lightbox or changes slides
+    ['lbClose', 'lbPrev', 'lbNext'].forEach(id => {
+      document.getElementById(id).addEventListener('click', () => setZoom(false));
+    });
+    document.addEventListener('keydown', e => {
+      if (['ArrowLeft', 'ArrowRight', 'Escape'].includes(e.key)) setZoom(false);
+    });
+
+    // Reset zoom whenever your existing script loads a new slide
+    new MutationObserver(() => setZoom(false))
+      .observe(img, { attributes: true, attributeFilter: ['src'] });
+  })();
+</script>
 </body>
 </html>
